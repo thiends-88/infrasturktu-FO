@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --ink: #0f172a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(51, 155, 255, 0.12), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(16, 185, 129, 0.08), transparent 50%),
+    var(--bg);
+  min-height: 100vh;
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl border border-slate-200/80 shadow-card;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+      transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2
+      disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-500 shadow-sm;
+  }
+
+  .btn-secondary {
+    @apply btn bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 focus:ring-brand-400;
+  }
+
+  .btn-danger {
+    @apply btn bg-rose-600 text-white hover:bg-rose-700 focus:ring-rose-500;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-slate-600 hover:bg-slate-100 focus:ring-slate-300;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-sm text-slate-900
+      placeholder:text-slate-400 shadow-sm
+      focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100
+      transition;
+  }
+
+  .label {
+    @apply block text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1.5;
+  }
+
+  .badge {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+}
+
+/* Print styles for reports */
+@media print {
+  body {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-break {
+    break-before: page;
+  }
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
