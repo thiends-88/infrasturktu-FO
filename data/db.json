@@ -1,0 +1,809 @@
+{
+  "regions": [
+    {
+      "id": "6df9892c-4bd2-4bc5-989f-49cc0d4f4201",
+      "name": "Kota Solok",
+      "code": "SLK",
+      "description": "Wilayah Kota Solok dan sekitarnya",
+      "totals": {
+        "olt_c300": 2,
+        "olt_c320": 1,
+        "olt_hsgq_8": 0,
+        "olt_hsgq_4": 0,
+        "tiang_7m": 120,
+        "tiang_9m": 85,
+        "odp_24": 41,
+        "odp_16": 35,
+        "odp_8": 25,
+        "odc_576": 0,
+        "odc_144": 3,
+        "odc_96": 5,
+        "odc_48": 8,
+        "jb_48": 12,
+        "jb_24": 18,
+        "jb_12": 0,
+        "adss_96": 0,
+        "adss_48": 15000,
+        "adss_24": 8000,
+        "adss_12": 5000,
+        "figure8_12": 2000,
+        "figure8_6": 0
+      },
+      "createdAt": "2025-01-15T08:00:00.000Z",
+      "updatedAt": "2026-09-18T07:37:06.689Z"
+    },
+    {
+      "id": "3732c57d-f623-498e-8569-5dbb59058ba7",
+      "name": "Kota Padang",
+      "code": "PDG",
+      "description": "Wilayah Kota Padang",
+      "totals": {
+        "olt_c300": 5,
+        "olt_c320": 3,
+        "olt_hsgq_8": 2,
+        "olt_hsgq_4": 0,
+        "tiang_7m": 300,
+        "tiang_9m": 250,
+        "odp_24": 150,
+        "odp_16": 120,
+        "odp_8": 80,
+        "odc_576": 2,
+        "odc_144": 8,
+        "odc_96": 12,
+        "odc_48": 0,
+        "jb_48": 40,
+        "jb_24": 55,
+        "jb_12": 30,
+        "adss_96": 25000,
+        "adss_48": 40000,
+        "adss_24": 20000,
+        "adss_12": 0,
+        "figure8_12": 8000,
+        "figure8_6": 3000
+      },
+      "createdAt": "2025-01-10T08:00:00.000Z",
+      "updatedAt": "2026-09-18T07:36:55.610Z"
+    },
+    {
+      "id": "af4404cb-1f1f-4a7a-9e7e-c1ca508a17be",
+      "name": "Kota Bukittinggi",
+      "code": "BKT",
+      "description": "Wilayah Kota Bukittinggi",
+      "totals": {
+        "olt_c300": 0,
+        "olt_c320": 2,
+        "olt_hsgq_8": 0,
+        "olt_hsgq_4": 1,
+        "tiang_7m": 90,
+        "tiang_9m": 60,
+        "odp_24": 30,
+        "odp_16": 25,
+        "odp_8": 20,
+        "odc_576": 0,
+        "odc_144": 0,
+        "odc_96": 4,
+        "odc_48": 6,
+        "jb_48": 0,
+        "jb_24": 15,
+        "jb_12": 10,
+        "adss_96": 0,
+        "adss_48": 10000,
+        "adss_24": 6000,
+        "adss_12": 4000,
+        "figure8_12": 0,
+        "figure8_6": 0
+      },
+      "createdAt": "2025-02-01T08:00:00.000Z",
+      "updatedAt": "2026-09-18T07:36:55.610Z"
+    },
+    {
+      "id": "80e189cd-c55a-4ada-8928-3cc59e19a335",
+      "name": "PARIAMAN",
+      "code": "CMN-004",
+      "description": "KOTA PARIAMAN",
+      "totals": {
+        "olt_c300": 0,
+        "olt_c320": 1,
+        "olt_hsgq_8": 0,
+        "olt_hsgq_4": 0,
+        "tiang_7m": 45,
+        "tiang_9m": 2,
+        "odp_24": 0,
+        "odp_16": 20,
+        "odp_8": 0,
+        "odc_576": 0,
+        "odc_144": 1,
+        "odc_96": 0,
+        "odc_48": 7,
+        "jb_48": 0,
+        "jb_24": 7,
+        "jb_12": 0,
+        "adss_96": 0,
+        "adss_48": 500,
+        "adss_24": 16000,
+        "adss_12": 0,
+        "figure8_12": 17000,
+        "figure8_6": 7150
+      },
+      "createdAt": "2026-09-18T07:44:32.835Z",
+      "updatedAt": "2026-09-18T07:49:10.929Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "e63cfc66-c675-4cee-a7a6-2d0c0208792d",
+      "regionId": "6df9892c-4bd2-4bc5-989f-49cc0d4f4201",
+      "type": "initial",
+      "date": "2025-01-15",
+      "createdAt": "2025-01-15T10:00:00.000Z",
+      "note": "Data awal penggelaran Kota Solok",
+      "changes": [
+        {
+          "key": "olt_c300",
+          "label": "OLT C300",
+          "unit": "UNIT",
+          "delta": 2,
+          "before": 0,
+          "after": 2
+        },
+        {
+          "key": "olt_c320",
+          "label": "OLT C320",
+          "unit": "UNIT",
+          "delta": 1,
+          "before": 0,
+          "after": 1
+        },
+        {
+          "key": "tiang_7m",
+          "label": "Tiang 7 Meter",
+          "unit": "BATANG",
+          "delta": 120,
+          "before": 0,
+          "after": 120
+        },
+        {
+          "key": "tiang_9m",
+          "label": "Tiang 9 Meter",
+          "unit": "BATANG",
+          "delta": 85,
+          "before": 0,
+          "after": 85
+        },
+        {
+          "key": "odp_24",
+          "label": "ODP 24",
+          "unit": "UNIT",
+          "delta": 40,
+          "before": 0,
+          "after": 40
+        },
+        {
+          "key": "odp_16",
+          "label": "ODP 16",
+          "unit": "UNIT",
+          "delta": 35,
+          "before": 0,
+          "after": 35
+        },
+        {
+          "key": "odp_8",
+          "label": "ODP 8",
+          "unit": "UNIT",
+          "delta": 25,
+          "before": 0,
+          "after": 25
+        },
+        {
+          "key": "odc_144",
+          "label": "ODC 144",
+          "unit": "UNIT",
+          "delta": 3,
+          "before": 0,
+          "after": 3
+        },
+        {
+          "key": "odc_96",
+          "label": "ODC 96",
+          "unit": "UNIT",
+          "delta": 5,
+          "before": 0,
+          "after": 5
+        },
+        {
+          "key": "odc_48",
+          "label": "ODC 48",
+          "unit": "UNIT",
+          "delta": 8,
+          "before": 0,
+          "after": 8
+        },
+        {
+          "key": "jb_48",
+          "label": "JB 48",
+          "unit": "UNIT",
+          "delta": 12,
+          "before": 0,
+          "after": 12
+        },
+        {
+          "key": "jb_24",
+          "label": "JB 24",
+          "unit": "UNIT",
+          "delta": 18,
+          "before": 0,
+          "after": 18
+        },
+        {
+          "key": "adss_48",
+          "label": "ADSS 48 CORE",
+          "unit": "METER",
+          "delta": 15000,
+          "before": 0,
+          "after": 15000
+        },
+        {
+          "key": "adss_24",
+          "label": "ADSS 24 CORE",
+          "unit": "METER",
+          "delta": 8000,
+          "before": 0,
+          "after": 8000
+        },
+        {
+          "key": "adss_12",
+          "label": "ADSS 12 CORE",
+          "unit": "METER",
+          "delta": 5000,
+          "before": 0,
+          "after": 5000
+        },
+        {
+          "key": "figure8_12",
+          "label": "FIGURE 8 12 CORE",
+          "unit": "METER",
+          "delta": 2000,
+          "before": 0,
+          "after": 2000
+        }
+      ],
+      "operator": "Admin"
+    },
+    {
+      "id": "d9bdddd8-8360-4a2b-93a9-91145706ba11",
+      "regionId": "3732c57d-f623-498e-8569-5dbb59058ba7",
+      "type": "initial",
+      "date": "2025-01-10",
+      "createdAt": "2025-01-10T10:00:00.000Z",
+      "note": "Data awal penggelaran Kota Padang",
+      "changes": [
+        {
+          "key": "olt_c300",
+          "label": "OLT C300",
+          "unit": "UNIT",
+          "delta": 5,
+          "before": 0,
+          "after": 5
+        },
+        {
+          "key": "olt_c320",
+          "label": "OLT C320",
+          "unit": "UNIT",
+          "delta": 3,
+          "before": 0,
+          "after": 3
+        },
+        {
+          "key": "olt_hsgq_8",
+          "label": "OLT HSGQ GPON 8 PORT",
+          "unit": "UNIT",
+          "delta": 2,
+          "before": 0,
+          "after": 2
+        },
+        {
+          "key": "tiang_7m",
+          "label": "Tiang 7 Meter",
+          "unit": "BATANG",
+          "delta": 300,
+          "before": 0,
+          "after": 300
+        },
+        {
+          "key": "tiang_9m",
+          "label": "Tiang 9 Meter",
+          "unit": "BATANG",
+          "delta": 250,
+          "before": 0,
+          "after": 250
+        },
+        {
+          "key": "odp_24",
+          "label": "ODP 24",
+          "unit": "UNIT",
+          "delta": 150,
+          "before": 0,
+          "after": 150
+        },
+        {
+          "key": "odp_16",
+          "label": "ODP 16",
+          "unit": "UNIT",
+          "delta": 120,
+          "before": 0,
+          "after": 120
+        },
+        {
+          "key": "odp_8",
+          "label": "ODP 8",
+          "unit": "UNIT",
+          "delta": 80,
+          "before": 0,
+          "after": 80
+        },
+        {
+          "key": "odc_576",
+          "label": "ODC 576",
+          "unit": "UNIT",
+          "delta": 2,
+          "before": 0,
+          "after": 2
+        },
+        {
+          "key": "odc_144",
+          "label": "ODC 144",
+          "unit": "UNIT",
+          "delta": 8,
+          "before": 0,
+          "after": 8
+        },
+        {
+          "key": "odc_96",
+          "label": "ODC 96",
+          "unit": "UNIT",
+          "delta": 12,
+          "before": 0,
+          "after": 12
+        },
+        {
+          "key": "jb_48",
+          "label": "JB 48",
+          "unit": "UNIT",
+          "delta": 40,
+          "before": 0,
+          "after": 40
+        },
+        {
+          "key": "jb_24",
+          "label": "JB 24",
+          "unit": "UNIT",
+          "delta": 55,
+          "before": 0,
+          "after": 55
+        },
+        {
+          "key": "jb_12",
+          "label": "JB 12",
+          "unit": "UNIT",
+          "delta": 30,
+          "before": 0,
+          "after": 30
+        },
+        {
+          "key": "adss_96",
+          "label": "ADSS 96 CORE",
+          "unit": "METER",
+          "delta": 25000,
+          "before": 0,
+          "after": 25000
+        },
+        {
+          "key": "adss_48",
+          "label": "ADSS 48 CORE",
+          "unit": "METER",
+          "delta": 40000,
+          "before": 0,
+          "after": 40000
+        },
+        {
+          "key": "adss_24",
+          "label": "ADSS 24 CORE",
+          "unit": "METER",
+          "delta": 20000,
+          "before": 0,
+          "after": 20000
+        },
+        {
+          "key": "figure8_12",
+          "label": "FIGURE 8 12 CORE",
+          "unit": "METER",
+          "delta": 8000,
+          "before": 0,
+          "after": 8000
+        },
+        {
+          "key": "figure8_6",
+          "label": "FIGURE 8 6 CORE",
+          "unit": "METER",
+          "delta": 3000,
+          "before": 0,
+          "after": 3000
+        }
+      ],
+      "operator": "Admin"
+    },
+    {
+      "id": "167d10a6-b8ed-468d-912c-9df971ad3ea2",
+      "regionId": "af4404cb-1f1f-4a7a-9e7e-c1ca508a17be",
+      "type": "initial",
+      "date": "2025-02-01",
+      "createdAt": "2025-02-01T10:00:00.000Z",
+      "note": "Data awal penggelaran Kota Bukittinggi",
+      "changes": [
+        {
+          "key": "olt_c320",
+          "label": "OLT C320",
+          "unit": "UNIT",
+          "delta": 2,
+          "before": 0,
+          "after": 2
+        },
+        {
+          "key": "olt_hsgq_4",
+          "label": "OLT HSGQ GPON 4 PORT",
+          "unit": "UNIT",
+          "delta": 1,
+          "before": 0,
+          "after": 1
+        },
+        {
+          "key": "tiang_7m",
+          "label": "Tiang 7 Meter",
+          "unit": "BATANG",
+          "delta": 90,
+          "before": 0,
+          "after": 90
+        },
+        {
+          "key": "tiang_9m",
+          "label": "Tiang 9 Meter",
+          "unit": "BATANG",
+          "delta": 60,
+          "before": 0,
+          "after": 60
+        },
+        {
+          "key": "odp_24",
+          "label": "ODP 24",
+          "unit": "UNIT",
+          "delta": 30,
+          "before": 0,
+          "after": 30
+        },
+        {
+          "key": "odp_16",
+          "label": "ODP 16",
+          "unit": "UNIT",
+          "delta": 25,
+          "before": 0,
+          "after": 25
+        },
+        {
+          "key": "odp_8",
+          "label": "ODP 8",
+          "unit": "UNIT",
+          "delta": 20,
+          "before": 0,
+          "after": 20
+        },
+        {
+          "key": "odc_96",
+          "label": "ODC 96",
+          "unit": "UNIT",
+          "delta": 4,
+          "before": 0,
+          "after": 4
+        },
+        {
+          "key": "odc_48",
+          "label": "ODC 48",
+          "unit": "UNIT",
+          "delta": 6,
+          "before": 0,
+          "after": 6
+        },
+        {
+          "key": "jb_24",
+          "label": "JB 24",
+          "unit": "UNIT",
+          "delta": 15,
+          "before": 0,
+          "after": 15
+        },
+        {
+          "key": "jb_12",
+          "label": "JB 12",
+          "unit": "UNIT",
+          "delta": 10,
+          "before": 0,
+          "after": 10
+        },
+        {
+          "key": "adss_48",
+          "label": "ADSS 48 CORE",
+          "unit": "METER",
+          "delta": 10000,
+          "before": 0,
+          "after": 10000
+        },
+        {
+          "key": "adss_24",
+          "label": "ADSS 24 CORE",
+          "unit": "METER",
+          "delta": 6000,
+          "before": 0,
+          "after": 6000
+        },
+        {
+          "key": "adss_12",
+          "label": "ADSS 12 CORE",
+          "unit": "METER",
+          "delta": 4000,
+          "before": 0,
+          "after": 4000
+        }
+      ],
+      "operator": "Admin"
+    },
+    {
+      "id": "6a87ae6c-b6a6-42cd-a887-66a301a71030",
+      "regionId": "6df9892c-4bd2-4bc5-989f-49cc0d4f4201",
+      "type": "penambahan",
+      "date": "2025-03-12",
+      "createdAt": "2025-03-12T14:30:00.000Z",
+      "note": "Penambahan ODP area Talang",
+      "operator": "Teknisi FO",
+      "changes": [
+        {
+          "key": "odp_24",
+          "label": "ODP 24",
+          "unit": "UNIT",
+          "delta": 5,
+          "before": 35,
+          "after": 40
+        },
+        {
+          "key": "adss_24",
+          "label": "ADSS 24 CORE",
+          "unit": "METER",
+          "delta": 1500,
+          "before": 6500,
+          "after": 8000
+        }
+      ]
+    },
+    {
+      "id": "6aef7dbe-2bb4-4988-9456-75a5dd26cddf",
+      "regionId": "3732c57d-f623-498e-8569-5dbb59058ba7",
+      "type": "maintenance",
+      "date": "2025-04-05",
+      "createdAt": "2025-04-05T09:15:00.000Z",
+      "note": "Maintenance ODC & penambahan JB",
+      "operator": "Tim Maintenance",
+      "changes": [
+        {
+          "key": "jb_24",
+          "label": "JB 24",
+          "unit": "UNIT",
+          "delta": 5,
+          "before": 50,
+          "after": 55
+        }
+      ]
+    },
+    {
+      "id": "9649c246-aebd-4d04-8e6c-8e7e8aaadb40",
+      "regionId": "3732c57d-f623-498e-8569-5dbb59058ba7",
+      "type": "penambahan",
+      "date": "2025-06-20",
+      "createdAt": "2025-06-20T11:00:00.000Z",
+      "note": "Ekspansi FO Kuranji",
+      "operator": "Admin",
+      "changes": [
+        {
+          "key": "odp_16",
+          "label": "ODP 16",
+          "unit": "UNIT",
+          "delta": 20,
+          "before": 100,
+          "after": 120
+        },
+        {
+          "key": "tiang_9m",
+          "label": "Tiang 9 Meter",
+          "unit": "BATANG",
+          "delta": 30,
+          "before": 220,
+          "after": 250
+        },
+        {
+          "key": "adss_48",
+          "label": "ADSS 48 CORE",
+          "unit": "METER",
+          "delta": 5000,
+          "before": 35000,
+          "after": 40000
+        }
+      ]
+    },
+    {
+      "id": "87fecdbd-e8a5-441e-9f56-2860b2599f39",
+      "regionId": "6df9892c-4bd2-4bc5-989f-49cc0d4f4201",
+      "type": "penambahan",
+      "date": "2026-09-18",
+      "createdAt": "2026-09-18T07:37:06.689Z",
+      "note": "Test penambahan ODP",
+      "operator": "Tester",
+      "changes": [
+        {
+          "key": "odp_24",
+          "label": "ODP 24",
+          "unit": "UNIT",
+          "delta": 1,
+          "before": 40,
+          "after": 41
+        }
+      ]
+    },
+    {
+      "id": "e9499958-7fa6-4a56-ab81-b93c74d590da",
+      "regionId": "80e189cd-c55a-4ada-8928-3cc59e19a335",
+      "type": "initial",
+      "date": "2026-09-18",
+      "createdAt": "2026-09-18T07:44:32.835Z",
+      "note": "TAMBAHAN",
+      "operator": "Admin",
+      "changes": [
+        {
+          "key": "olt_c320",
+          "label": "OLT C320",
+          "unit": "UNIT",
+          "delta": 1,
+          "before": 0,
+          "after": 1
+        },
+        {
+          "key": "tiang_7m",
+          "label": "Tiang 7 Meter",
+          "unit": "BATANG",
+          "delta": 35,
+          "before": 0,
+          "after": 35
+        },
+        {
+          "key": "tiang_9m",
+          "label": "Tiang 9 Meter",
+          "unit": "BATANG",
+          "delta": 2,
+          "before": 0,
+          "after": 2
+        },
+        {
+          "key": "odp_16",
+          "label": "ODP 16",
+          "unit": "UNIT",
+          "delta": 10,
+          "before": 0,
+          "after": 10
+        },
+        {
+          "key": "odc_144",
+          "label": "ODC 144",
+          "unit": "UNIT",
+          "delta": 1,
+          "before": 0,
+          "after": 1
+        },
+        {
+          "key": "odc_48",
+          "label": "ODC 48",
+          "unit": "UNIT",
+          "delta": 3,
+          "before": 0,
+          "after": 3
+        },
+        {
+          "key": "jb_24",
+          "label": "JB 24",
+          "unit": "UNIT",
+          "delta": 2,
+          "before": 0,
+          "after": 2
+        },
+        {
+          "key": "adss_48",
+          "label": "ADSS 48 CORE",
+          "unit": "METER",
+          "delta": 500,
+          "before": 0,
+          "after": 500
+        },
+        {
+          "key": "adss_24",
+          "label": "ADSS 24 CORE",
+          "unit": "METER",
+          "delta": 16000,
+          "before": 0,
+          "after": 16000
+        },
+        {
+          "key": "figure8_12",
+          "label": "FIGURE 8 12 CORE",
+          "unit": "METER",
+          "delta": 10500,
+          "before": 0,
+          "after": 10500
+        },
+        {
+          "key": "figure8_6",
+          "label": "FIGURE 8 6 CORE",
+          "unit": "METER",
+          "delta": 7150,
+          "before": 0,
+          "after": 7150
+        }
+      ]
+    },
+    {
+      "id": "240384df-00d4-4c8b-8fb5-1df47adbbf74",
+      "regionId": "80e189cd-c55a-4ada-8928-3cc59e19a335",
+      "type": "penambahan",
+      "date": "2026-09-18",
+      "createdAt": "2026-09-18T07:49:10.929Z",
+      "note": "PENAMBAHANA TIANG",
+      "operator": "Admin",
+      "changes": [
+        {
+          "key": "tiang_7m",
+          "label": "Tiang 7 Meter",
+          "unit": "BATANG",
+          "delta": 10,
+          "before": 35,
+          "after": 45
+        },
+        {
+          "key": "odp_16",
+          "label": "ODP 16",
+          "unit": "UNIT",
+          "delta": 10,
+          "before": 10,
+          "after": 20
+        },
+        {
+          "key": "odc_48",
+          "label": "ODC 48",
+          "unit": "UNIT",
+          "delta": 4,
+          "before": 3,
+          "after": 7
+        },
+        {
+          "key": "jb_24",
+          "label": "JB 24",
+          "unit": "UNIT",
+          "delta": 5,
+          "before": 2,
+          "after": 7
+        },
+        {
+          "key": "figure8_12",
+          "label": "FIGURE 8 12 CORE",
+          "unit": "METER",
+          "delta": 6500,
+          "before": 10500,
+          "after": 17000
+        }
+      ]
+    }
+  ]
+}
