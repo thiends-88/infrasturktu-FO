@@ -805,5 +805,16 @@
         }
       ]
     }
+  ],
+  "users": [
+    {
+      "id": "7212ea64-2ce6-4426-bc72-6facb2a0a983",
+      "username": "admin",
+      "name": "Administrator",
+      "role": "admin",
+      "passwordHash": "555a600d12c96df8d8609f4b1588838dcefb85e395658174e50fb0a3d2b2d887",
+      "salt": "efef724f1bdbc823baa8ec4c1482d4c7",
+      "createdAt": "2026-09-19T03:26:00.385Z"
+    }
   ]
 }
