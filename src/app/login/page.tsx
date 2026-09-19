@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/contexts/AuthContext";
-import { Network, Lock, User, ArrowRight, ShieldCheck, AlertCircle, Info } from "lucide-react";
+import { Network, Lock, User, ArrowRight, AlertCircle } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -34,12 +34,6 @@ export default function LoginPage() {
     } else {
       setError(res.error || "Login gagal");
     }
-  };
-
-  const handleFillDemo = (u: string, p: string) => {
-    setUsername(u);
-    setPassword(p);
-    setError("");
   };
 
   return (
@@ -130,34 +124,6 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Quick Demo Info */}
-          <div className="mt-8 pt-6 border-t border-slate-800 text-xs">
-            <div className="flex items-center gap-1.5 text-slate-400 mb-2 font-medium">
-              <Info className="h-3.5 w-3.5 text-brand-400" />
-              <span>Akun Default Sistem:</span>
-            </div>
-            <div className="bg-slate-800/60 rounded-xl p-3 border border-white/5 flex items-center justify-between">
-              <div>
-                <p className="text-slate-200 font-mono">
-                  Username: <span className="text-brand-300 font-semibold">admin</span>
-                </p>
-                <p className="text-slate-200 font-mono">
-                  Password: <span className="text-brand-300 font-semibold">admin123</span>
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleFillDemo("admin", "admin123")}
-                className="px-2.5 py-1.5 bg-brand-500/20 hover:bg-brand-500/30 text-brand-300 border border-brand-500/30 rounded-lg text-xs font-medium transition"
-              >
-                Gunakan
-              </button>
-            </div>
-            <p className="text-slate-500 text-[11px] mt-2 leading-relaxed flex items-start gap-1">
-              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0 mt-0.5" />
-              <span>Penambahan dan pengelolaan user hanya dapat dilakukan oleh akun berlevel <strong>Admin</strong>.</span>
-            </p>
-          </div>
         </div>
       </div>
     </div>
