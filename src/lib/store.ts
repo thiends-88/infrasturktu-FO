@@ -555,17 +555,14 @@ export async function createUser(input: {
   const data = await readData();
   data.users = data.users || [];
 
-  const username = input.username.trim().toLowerCase();
+  const username = input.username.trim();
   if (!username) throw new Error("Username wajib diisi");
-  if (!/^[a-zA-Z0-9_.-]{3,30}$/.test(username)) {
-    throw new Error("Username harus 3-30 karakter alfanumerik (boleh titik, strip, underscore)");
-  }
   if (!input.name.trim()) throw new Error("Nama lengkap wajib diisi");
-  if (!input.password || input.password.length < 5) {
-    throw new Error("Password minimal 5 karakter");
+  if (!input.password) {
+    throw new Error("Password wajib diisi");
   }
 
-  if (data.users.some((u) => u.username.toLowerCase() === username)) {
+  if (data.users.some((u) => u.username.toLowerCase() === username.toLowerCase())) {
     throw new Error("Username sudah digunakan");
   }
 
@@ -635,7 +632,6 @@ export async function updateUser(
   }
 
   if (input.password) {
-    if (input.password.length < 5) throw new Error("Password minimal 5 karakter");
     const { hash, salt } = hashPassword(input.password);
     data.users[idx].passwordHash = hash;
     data.users[idx].salt = salt;

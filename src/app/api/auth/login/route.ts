@@ -43,14 +43,16 @@ export async function POST(req: NextRequest) {
     const response = NextResponse.json({
       success: true,
       user: toSafeUser(user),
+      token, // dikirim juga di body agar client bisa pakai Authorization header saat cookie diblokir
     });
 
     response.cookies.set({
       name: "auth_token",
       value: token,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
+      partitioned: true,
       path: "/",
       maxAge: 7 * 24 * 60 * 60, // 7 hari
     });

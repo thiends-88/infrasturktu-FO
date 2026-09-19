@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import type { NextRequest } from "next/server";
 import { User, SafeUser } from "@/types";
 
 const SECRET_KEY = process.env.SESSION_SECRET || "infra-fo-super-secret-key-salt-982138";
@@ -58,4 +59,38 @@ export function verifyToken(token: string): SessionPayload | null {
   } catch {
     return null;
   }
+}
+
+/**
+ * Ambil sesi dari request: coba cookie dulu, lalu fallback ke
+ * Authorization: Bearer <token>, header x-auth-token, atau query param _t
+ * (dipakai saat cookie/header diblokir browser atau proxy,
+ * misalnya ketika aplikasi berjalan di dalam iframe preview).
+ */
+export function getSessionFromRequest(req: NextRequest): SessionPayload | null {
+  const cookieToken = req.cookies.get("auth_token")?.value;
+  if (cookieToken) {
+    const p = verifyToken(cookieToken);
+    if (p) return p;
+  }
+  const authHeader = req.headers.get("authorization");
+  if (authHeader && authHeader.toLowerCase().startsWith("bearer ")) {
+    const p = verifyToken(authHeader.slice(7).trim());
+    if (p) return p;
+  }
+  const xToken = req.headers.get("x-auth-token");
+  if (xToken) {
+    const p = verifyToken(xToken.trim());
+    if (p) return p;
+  }
+  try {
+    const qToken = req.nextUrl.searchParams.get("_t");
+    if (qToken) {
+      const p = verifyToken(qToken.trim());
+      if (p) return p;
+    }
+  } catch {
+    // ignore
+  }
+  return null;
 }

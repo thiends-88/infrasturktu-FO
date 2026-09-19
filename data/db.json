@@ -815,6 +815,24 @@
       "passwordHash": "555a600d12c96df8d8609f4b1588838dcefb85e395658174e50fb0a3d2b2d887",
       "salt": "efef724f1bdbc823baa8ec4c1482d4c7",
       "createdAt": "2026-09-19T03:26:00.385Z"
+    },
+    {
+      "id": "2a12721a-c5d4-4802-af82-90f100b1b2e6",
+      "username": "adit",
+      "name": "nindi firma",
+      "role": "staff",
+      "passwordHash": "c440317d7f172d17c2c5a0cc257495f8e10e664bb9799efbb78ceda6da4ded90",
+      "salt": "69467c62be17fe04c9a6837ad30ad4fc",
+      "createdAt": "2026-09-19T05:23:30.877Z"
+    },
+    {
+      "id": "49bb305f-2cd1-4548-b6f0-8eb2f55e8204",
+      "username": "amar",
+      "name": "amar",
+      "role": "staff",
+      "passwordHash": "80f6091e1a78fbee2a7c746be6aa3b8560799b123aaa87ce8a640b93541336cc",
+      "salt": "d0538208aec2960da59395e640577e67",
+      "createdAt": "2026-09-19T05:52:53.155Z"
     }
   ]
 }

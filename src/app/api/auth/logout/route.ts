@@ -6,8 +6,9 @@ export async function POST() {
     name: "auth_token",
     value: "",
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
+    secure: true,
+    sameSite: "none",
+    partitioned: true,
     path: "/",
     maxAge: 0,
   });

@@ -7,6 +7,7 @@ import PageHeader from "@/components/PageHeader";
 import Toast from "@/components/Toast";
 import Loading from "@/components/Loading";
 import { SafeUser } from "@/types";
+import { apiFetch } from "@/lib/apiClient";
 import {
   Users,
   UserPlus,
@@ -50,10 +51,13 @@ export default function UsersPage() {
   const fetchUsers = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch("/api/users");
+      const res = await apiFetch("/api/users");
       if (res.ok) {
         const data = await res.json();
         setUsers(data.users || []);
+      } else if (res.status === 401) {
+        setToast({ msg: "Sesi login tidak dikenali. Silakan login ulang.", type: "error" });
+        setTimeout(() => router.replace("/login"), 1500);
       } else if (res.status === 403) {
         setToast({ msg: "Akses ditolak: Hanya admin yang dapat mengakses", type: "error" });
       }
@@ -62,7 +66,7 @@ export default function UsersPage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     if (!authLoading) {
@@ -80,7 +84,7 @@ export default function UsersPage() {
     e.preventDefault();
     setCreateSubmitting(true);
     try {
-      const res = await fetch("/api/users", {
+      const res = await apiFetch("/api/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -92,7 +96,12 @@ export default function UsersPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setToast({ msg: data.error || "Gagal menambah user", type: "error" });
+        if (res.status === 401) {
+          setToast({ msg: "Sesi login tidak dikenali. Silakan login ulang.", type: "error" });
+          setTimeout(() => router.replace("/login"), 1500);
+        } else {
+          setToast({ msg: data.error || "Gagal menambah user", type: "error" });
+        }
       } else {
         setToast({ msg: `User "${newUsername}" berhasil dibuat!`, type: "success" });
         setShowCreateModal(false);
@@ -121,7 +130,7 @@ export default function UsersPage() {
     if (!editingUser) return;
     setEditSubmitting(true);
     try {
-      const res = await fetch(`/api/users/${editingUser.id}`, {
+      const res = await apiFetch(`/api/users/${editingUser.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -151,7 +160,7 @@ export default function UsersPage() {
     }
     setDeletingId(id);
     try {
-      const res = await fetch(`/api/users/${id}`, { method: "DELETE" });
+      const res = await apiFetch(`/api/users/${id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) {
         setToast({ msg: data.error || "Gagal menghapus user", type: "error" });
@@ -376,11 +385,11 @@ export default function UsersPage() {
                   required
                   value={newUsername}
                   onChange={(e) => setNewUsername(e.target.value)}
-                  placeholder="Contoh: budi_teknisi"
+                  placeholder="Contoh: budi"
                   className="input-field w-full text-sm font-mono"
                 />
                 <p className="text-[11px] text-slate-400 mt-1">
-                  Gunakan huruf kecil, angka, titik, atau garis bawah tanpa spasi (3-30 karakter).
+                  Username bebas — boleh huruf, angka, atau karakter apa pun.
                 </p>
               </div>
 
@@ -392,10 +401,9 @@ export default function UsersPage() {
                   <input
                     type="password"
                     required
-                    minLength={5}
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Minimal 5 karakter"
+                    placeholder="Password bebas"
                     className="input-field w-full text-sm"
                   />
                 </div>
