@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { verifyToken, toSafeUser } from "@/lib/auth";
+import { getSessionFromRequest, toSafeUser } from "@/lib/auth";
 import { getUsers, createUser } from "@/lib/store";
 
 export async function GET(req: NextRequest) {
-  const token = req.cookies.get("auth_token")?.value;
-  const payload = token ? verifyToken(token) : null;
+  const payload = getSessionFromRequest(req);
   if (!payload) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
@@ -24,8 +23,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const token = req.cookies.get("auth_token")?.value;
-  const payload = token ? verifyToken(token) : null;
+  const payload = getSessionFromRequest(req);
   if (!payload) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }

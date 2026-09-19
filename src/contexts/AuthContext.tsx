@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { SafeUser } from "@/types";
+import { apiFetch, saveToken, clearToken } from "@/lib/apiClient";
 
 interface AuthContextType {
   user: SafeUser | null;
@@ -30,7 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const refresh = useCallback(async () => {
     try {
-      const res = await fetch("/api/auth/me", { cache: "no-store" });
+      const res = await apiFetch("/api/auth/me", { cache: "no-store" });
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
@@ -69,6 +70,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (!res.ok) {
         return { success: false, error: data.error || "Login gagal" };
       }
+      if (data.token) {
+        saveToken(data.token);
+      }
       setUser(data.user);
       return { success: true };
     } catch {
@@ -80,6 +84,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       await fetch("/api/auth/logout", { method: "POST" });
     } finally {
+      clearToken();
       setUser(null);
       router.replace("/login");
     }
