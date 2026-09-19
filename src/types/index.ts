@@ -103,7 +103,23 @@ export interface Region {
 export interface AppData {
   regions: Region[];
   transactions: Transaction[];
+  users?: User[];
 }
+
+export type UserRole = "admin" | "staff";
+
+export interface User {
+  id: string;
+  username: string;
+  name: string;
+  role: UserRole;
+  passwordHash: string; // scrypt hash
+  salt: string;
+  createdAt: string;
+}
+
+export type SafeUser = Omit<User, "passwordHash" | "salt">;
+
 
 export interface DashboardStats {
   totalRegions: number;

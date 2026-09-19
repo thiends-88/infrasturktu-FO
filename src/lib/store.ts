@@ -9,10 +9,12 @@ import {
   Region,
   Transaction,
   TransactionType,
+  User,
   emptyQuantities,
   getDef,
   sumCategory,
 } from "@/types";
+import { hashPassword } from "./auth";
 
 const DATA_PATH = path.join(process.cwd(), "data", "db.json");
 
@@ -202,7 +204,22 @@ function createSeedData(): AppData {
 export async function readData(): Promise<AppData> {
   await ensureDataFile();
   const raw = await fs.readFile(DATA_PATH, "utf-8");
-  return JSON.parse(raw) as AppData;
+  const data = JSON.parse(raw) as AppData;
+  if (!data.users || data.users.length === 0) {
+    const adminPass = hashPassword("admin123");
+    const defaultAdmin: User = {
+      id: uuidv4(),
+      username: "admin",
+      name: "Administrator",
+      role: "admin",
+      passwordHash: adminPass.hash,
+      salt: adminPass.salt,
+      createdAt: new Date().toISOString(),
+    };
+    data.users = [defaultAdmin];
+    await writeData(data);
+  }
+  return data;
 }
 
 async function writeData(data: AppData): Promise<void> {
@@ -508,4 +525,122 @@ export async function getReport(regionId?: string) {
       },
     };
   });
+}
+
+export async function getUsers(): Promise<User[]> {
+  const data = await readData();
+  return data.users || [];
+}
+
+export async function getUserByUsername(username: string): Promise<User | null> {
+  const data = await readData();
+  const u = (data.users || []).find(
+    (user) => user.username.toLowerCase() === username.trim().toLowerCase()
+  );
+  return u || null;
+}
+
+export async function getUserById(id: string): Promise<User | null> {
+  const data = await readData();
+  const u = (data.users || []).find((user) => user.id === id);
+  return u || null;
+}
+
+export async function createUser(input: {
+  username: string;
+  name: string;
+  password: string;
+  role: "admin" | "staff";
+}): Promise<User> {
+  const data = await readData();
+  data.users = data.users || [];
+
+  const username = input.username.trim().toLowerCase();
+  if (!username) throw new Error("Username wajib diisi");
+  if (!/^[a-zA-Z0-9_.-]{3,30}$/.test(username)) {
+    throw new Error("Username harus 3-30 karakter alfanumerik (boleh titik, strip, underscore)");
+  }
+  if (!input.name.trim()) throw new Error("Nama lengkap wajib diisi");
+  if (!input.password || input.password.length < 5) {
+    throw new Error("Password minimal 5 karakter");
+  }
+
+  if (data.users.some((u) => u.username.toLowerCase() === username)) {
+    throw new Error("Username sudah digunakan");
+  }
+
+  const { hash, salt } = hashPassword(input.password);
+  const newUser: User = {
+    id: uuidv4(),
+    username,
+    name: input.name.trim(),
+    role: input.role === "admin" ? "admin" : "staff",
+    passwordHash: hash,
+    salt,
+    createdAt: new Date().toISOString(),
+  };
+
+  data.users.push(newUser);
+  await writeData(data);
+  return newUser;
+}
+
+export async function deleteUser(id: string, currentUserId: string): Promise<void> {
+  const data = await readData();
+  data.users = data.users || [];
+
+  if (id === currentUserId) {
+    throw new Error("Tidak dapat menghapus akun sendiri yang sedang aktif");
+  }
+
+  const target = data.users.find((u) => u.id === id);
+  if (!target) throw new Error("User tidak ditemukan");
+
+  const adminCount = data.users.filter((u) => u.role === "admin").length;
+  if (target.role === "admin" && adminCount <= 1) {
+    throw new Error("Tidak dapat menghapus admin terakhir pada sistem");
+  }
+
+  data.users = data.users.filter((u) => u.id !== id);
+  await writeData(data);
+}
+
+export async function updateUser(
+  id: string,
+  input: {
+    name?: string;
+    role?: "admin" | "staff";
+    password?: string;
+  },
+  currentUserId?: string
+): Promise<User> {
+  const data = await readData();
+  data.users = data.users || [];
+  const idx = data.users.findIndex((u) => u.id === id);
+  if (idx < 0) throw new Error("User tidak ditemukan");
+
+  if (input.name && input.name.trim()) {
+    data.users[idx].name = input.name.trim();
+  }
+
+  if (input.role) {
+    // If demoting an admin, ensure not the last admin
+    if (data.users[idx].role === "admin" && input.role !== "admin") {
+      const adminCount = data.users.filter((u) => u.role === "admin").length;
+      if (adminCount <= 1) {
+        throw new Error("Sistem harus memiliki setidaknya satu admin");
+      }
+    }
+    data.users[idx].role = input.role;
+  }
+
+  if (input.password) {
+    if (input.password.length < 5) throw new Error("Password minimal 5 karakter");
+    const { hash, salt } = hashPassword(input.password);
+    data.users[idx].passwordHash = hash;
+    data.users[idx].salt = salt;
+  }
+
+  await writeData(data);
+  return data.users[idx];
 }

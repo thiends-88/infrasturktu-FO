@@ -14,6 +14,7 @@ import PageHeader from "@/components/PageHeader";
 import Loading from "@/components/Loading";
 import Toast from "@/components/Toast";
 import EquipmentForm, { emptyQuantities } from "@/components/EquipmentForm";
+import { useAuth } from "@/contexts/AuthContext";
 import {
   QuantityMap,
   Region,
@@ -28,6 +29,7 @@ function InputFormInner() {
   const searchParams = useSearchParams();
   const presetRegionId = searchParams.get("regionId") || "";
   const modeParam = searchParams.get("mode"); // "new" | null
+  const { user } = useAuth();
 
   const [regions, setRegions] = useState<Region[]>([]);
   const [loading, setLoading] = useState(true);
@@ -48,9 +50,15 @@ function InputFormInner() {
   // Common fields
   const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [note, setNote] = useState("");
-  const [operator, setOperator] = useState("Admin");
+  const [operator, setOperator] = useState(user?.name || "Admin");
   const [txType, setTxType] = useState<TransactionType>("penambahan");
   const [quantities, setQuantities] = useState<QuantityMap>(emptyQuantities());
+
+  useEffect(() => {
+    if (user?.name) {
+      setOperator(user.name);
+    }
+  }, [user]);
 
   // Success state
   const [success, setSuccess] = useState<{
