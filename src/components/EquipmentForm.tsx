@@ -3,8 +3,8 @@
 import {
   CATEGORY_COLORS,
   CATEGORY_LABELS,
+  EQUIPMENT_CATEGORIES,
   EQUIPMENT_DEFS,
-  EquipmentCategory,
   QuantityMap,
   emptyQuantities,
 } from "@/types";
@@ -19,14 +19,7 @@ interface EquipmentFormProps {
   disabled?: boolean;
 }
 
-const CATEGORIES: EquipmentCategory[] = [
-  "perangkat_aktif",
-  "tiang",
-  "odp",
-  "odc",
-  "jb",
-  "kabel_adss",
-];
+const CATEGORIES = EQUIPMENT_CATEGORIES;
 
 export default function EquipmentForm({
   values,

@@ -14,6 +14,7 @@ import {
   CATEGORY_COLORS,
   CATEGORY_LABELS,
   EquipmentCategory,
+  METER_CATEGORY,
   Region,
 } from "@/types";
 import {
@@ -62,6 +63,7 @@ interface ReportRow {
     tiang: number;
     odp: number;
     odc: number;
+    otb: number;
     jb: number;
     kabel: number;
   };
@@ -132,11 +134,12 @@ function LaporanInner() {
       olt: acc.olt + r.summary.olt,
       odp: acc.odp + r.summary.odp,
       odc: acc.odc + r.summary.odc,
+      otb: acc.otb + (r.summary.otb || 0),
       jb: acc.jb + r.summary.jb,
       tiang: acc.tiang + r.summary.tiang,
       kabel: acc.kabel + r.summary.kabel,
     }),
-    { olt: 0, odp: 0, odc: 0, jb: 0, tiang: 0, kabel: 0 }
+    { olt: 0, odp: 0, odc: 0, otb: 0, jb: 0, tiang: 0, kabel: 0 }
   );
 
   return (
@@ -215,11 +218,12 @@ function LaporanInner() {
               Ringkasan Total
               {!regionId && ` — ${report.length} Wilayah`}
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
               {[
                 { label: "OLT", value: grand.olt, color: "#1a7bf5" },
                 { label: "ODP", value: grand.odp, color: "#10b981" },
                 { label: "ODC", value: grand.odc, color: "#8b5cf6" },
+                { label: "OTB", value: grand.otb, color: "#ec4899" },
                 { label: "JB", value: grand.jb, color: "#ef4444" },
                 { label: "Tiang", value: grand.tiang, color: "#f59e0b" },
                 {
@@ -279,12 +283,13 @@ function LaporanInner() {
                 </div>
 
                 {/* Summary bar */}
-                <div className="grid grid-cols-3 sm:grid-cols-6 divide-x divide-slate-100 border-b border-slate-100 bg-slate-50/80">
+                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 divide-x divide-y lg:divide-y-0 divide-slate-100 border-b border-slate-100 bg-slate-50/80">
                   {(
                     [
                       ["OLT", row.summary.olt],
                       ["ODP", row.summary.odp],
                       ["ODC", row.summary.odc],
+                      ["OTB", row.summary.otb || 0],
                       ["JB", row.summary.jb],
                       ["Tiang", row.summary.tiang],
                       ["Kabel (m)", row.summary.kabel],
@@ -315,7 +320,7 @@ function LaporanInner() {
                         </h3>
                         <span className="ml-auto text-xs font-semibold text-slate-500">
                           Subtotal:{" "}
-                          {cat.category === "kabel_adss"
+                          {cat.category === METER_CATEGORY
                             ? formatMeter(cat.subtotal)
                             : formatNumber(cat.subtotal)}
                         </span>

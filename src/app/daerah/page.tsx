@@ -9,6 +9,7 @@ import {
   Server,
   Box,
   HardDrive,
+  Network,
   Activity,
   TowerControl,
   Cable,
@@ -113,6 +114,7 @@ export default function DaerahPage() {
             const olt = sumCategory(r.totals, "perangkat_aktif");
             const odp = sumCategory(r.totals, "odp");
             const odc = sumCategory(r.totals, "odc");
+            const otb = sumCategory(r.totals, "otb");
             const jb = sumCategory(r.totals, "jb");
             const tiang = sumCategory(r.totals, "tiang");
             const kabel = sumCategory(r.totals, "kabel_adss");
@@ -156,10 +158,11 @@ export default function DaerahPage() {
                   )}
                 </div>
 
-                <div className="px-5 pb-4 grid grid-cols-3 gap-2">
+                <div className="px-5 pb-4 grid grid-cols-4 gap-2">
                   <MiniStat icon={Server} label="OLT" value={olt} color="#1a7bf5" />
                   <MiniStat icon={Box} label="ODP" value={odp} color="#10b981" />
                   <MiniStat icon={HardDrive} label="ODC" value={odc} color="#8b5cf6" />
+                  <MiniStat icon={Network} label="OTB" value={otb} color="#ec4899" />
                   <MiniStat icon={Activity} label="JB" value={jb} color="#ef4444" />
                   <MiniStat icon={TowerControl} label="Tiang" value={tiang} color="#f59e0b" />
                   <MiniStat

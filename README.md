@@ -4,7 +4,7 @@ Aplikasi web untuk pendataan infrastruktur fiber optik **per daerah/wilayah**. S
 
 ## Fitur
 
-- **Dashboard** — ringkasan total OLT/ODP/ODC/JB/tiang/kabel, grafik per wilayah, aktivitas bulanan
+- **Dashboard** — ringkasan total OLT/ODP/ODC/OTB/JB/tiang/kabel, grafik per wilayah, aktivitas bulanan
 - **Data Daerah** — daftar wilayah + detail inventaris lengkap
 - **Input / Update** — form input daerah baru atau update existing (penambahan ODP/ODC/JB, maintenance, dll.)
 - **Riwayat** — histori transaksi dengan before/after total per item
@@ -17,9 +17,13 @@ Aplikasi web untuk pendataan infrastruktur fiber optik **per daerah/wilayah**. S
 | Perangkat Aktif | OLT C300, C320, HSGQ GPON 8/4 Port |
 | Tiang | 7 Meter, 9 Meter |
 | ODP | 24, 16, 8 |
-| ODC | 576, 144, 96, 48 |
-| JB | 48, 24, 12 |
+| ODC | 576, 144, 96, 48, ODC/ODP 24 |
+| OTB | 6 CORE, 12 CORE, 24 CORE, 48 CORE |
+| JB | 48, 24, 12, 6 / Mini |
 | Kabel ADSS | ADSS 96/48/24/12 CORE, Figure-8 12/6 CORE |
+
+> Item baru (OTB, JB 6 / Mini, ODC/ODP 24) otomatis ditambahkan ke daerah lama
+> dengan nilai 0 saat aplikasi dijalankan — tinggal diisi lewat menu **Input / Update**.
 
 ## Requirements
 

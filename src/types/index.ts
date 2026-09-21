@@ -4,6 +4,7 @@ export type EquipmentCategory =
   | "tiang"
   | "odp"
   | "odc"
+  | "otb"
   | "jb"
   | "kabel_adss";
 
@@ -33,10 +34,17 @@ export const EQUIPMENT_DEFS: EquipmentItemDef[] = [
   { key: "odc_144", label: "ODC 144", unit: "UNIT", category: "odc" },
   { key: "odc_96", label: "ODC 96", unit: "UNIT", category: "odc" },
   { key: "odc_48", label: "ODC 48", unit: "UNIT", category: "odc" },
+  { key: "odc_24", label: "ODC/ODP 24", unit: "UNIT", category: "odc" },
+  // OTB (Optical Termination Box)
+  { key: "otb_6", label: "OTB 6 CORE", unit: "UNIT", category: "otb" },
+  { key: "otb_12", label: "OTB 12 CORE", unit: "UNIT", category: "otb" },
+  { key: "otb_24", label: "OTB 24 CORE", unit: "UNIT", category: "otb" },
+  { key: "otb_48", label: "OTB 48 CORE", unit: "UNIT", category: "otb" },
   // JB
   { key: "jb_48", label: "JB 48", unit: "UNIT", category: "jb" },
   { key: "jb_24", label: "JB 24", unit: "UNIT", category: "jb" },
   { key: "jb_12", label: "JB 12", unit: "UNIT", category: "jb" },
+  { key: "jb_6", label: "JB 6 / Mini", unit: "UNIT", category: "jb" },
   // Kabel ADSS
   { key: "adss_96", label: "ADSS 96 CORE", unit: "METER", category: "kabel_adss" },
   { key: "adss_48", label: "ADSS 48 CORE", unit: "METER", category: "kabel_adss" },
@@ -51,6 +59,7 @@ export const CATEGORY_LABELS: Record<EquipmentCategory, string> = {
   tiang: "Tiang",
   odp: "ODP",
   odc: "ODC",
+  otb: "OTB (Optical Termination Box)",
   jb: "JB (Joint Box)",
   kabel_adss: "Kabel ADSS / Figure-8",
 };
@@ -60,9 +69,24 @@ export const CATEGORY_COLORS: Record<EquipmentCategory, string> = {
   tiang: "#f59e0b",
   odp: "#10b981",
   odc: "#8b5cf6",
+  otb: "#ec4899",
   jb: "#ef4444",
   kabel_adss: "#06b6d4",
 };
+
+/** Urutan tampilan kategori di seluruh halaman (form, detail, laporan) */
+export const EQUIPMENT_CATEGORIES: EquipmentCategory[] = [
+  "perangkat_aktif",
+  "tiang",
+  "odp",
+  "odc",
+  "otb",
+  "jb",
+  "kabel_adss",
+];
+
+/** Kategori yang satuannya meter (bukan unit/batang) */
+export const METER_CATEGORY: EquipmentCategory = "kabel_adss";
 
 /** Quantity map: equipment key -> number */
 export type QuantityMap = Record<string, number>;
@@ -126,6 +150,7 @@ export interface DashboardStats {
   totalOlt: number;
   totalOdp: number;
   totalOdc: number;
+  totalOtb: number;
   totalJb: number;
   totalTiang: number;
   totalKabelMeter: number;
@@ -136,6 +161,7 @@ export interface DashboardStats {
     olt: number;
     odp: number;
     odc: number;
+    otb: number;
     jb: number;
     tiang: number;
     kabel: number;
