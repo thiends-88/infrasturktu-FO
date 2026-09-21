@@ -4,7 +4,9 @@ import { v4 as uuidv4 } from "uuid";
 import {
   AppData,
   DashboardStats,
+  EQUIPMENT_CATEGORIES,
   EQUIPMENT_DEFS,
+  EquipmentCategory,
   QuantityMap,
   Region,
   Transaction,
@@ -45,8 +47,13 @@ function createSeedData(): AppData {
   solokTotals.odc_144 = 3;
   solokTotals.odc_96 = 5;
   solokTotals.odc_48 = 8;
+  solokTotals.odc_24 = 4;
+  solokTotals.otb_6 = 6;
+  solokTotals.otb_12 = 3;
+  solokTotals.otb_24 = 1;
   solokTotals.jb_48 = 12;
   solokTotals.jb_24 = 18;
+  solokTotals.jb_6 = 10;
   solokTotals.adss_48 = 15000;
   solokTotals.adss_24 = 8000;
   solokTotals.adss_12 = 5000;
@@ -64,9 +71,15 @@ function createSeedData(): AppData {
   padangTotals.odc_576 = 2;
   padangTotals.odc_144 = 8;
   padangTotals.odc_96 = 12;
+  padangTotals.odc_24 = 10;
+  padangTotals.otb_6 = 15;
+  padangTotals.otb_12 = 8;
+  padangTotals.otb_24 = 4;
+  padangTotals.otb_48 = 2;
   padangTotals.jb_48 = 40;
   padangTotals.jb_24 = 55;
   padangTotals.jb_12 = 30;
+  padangTotals.jb_6 = 25;
   padangTotals.adss_96 = 25000;
   padangTotals.adss_48 = 40000;
   padangTotals.adss_24 = 20000;
@@ -83,8 +96,12 @@ function createSeedData(): AppData {
   btTotals.odp_8 = 20;
   btTotals.odc_96 = 4;
   btTotals.odc_48 = 6;
+  btTotals.odc_24 = 3;
+  btTotals.otb_6 = 5;
+  btTotals.otb_12 = 2;
   btTotals.jb_24 = 15;
   btTotals.jb_12 = 10;
+  btTotals.jb_6 = 8;
   btTotals.adss_48 = 10000;
   btTotals.adss_24 = 6000;
   btTotals.adss_12 = 4000;
@@ -205,6 +222,8 @@ export async function readData(): Promise<AppData> {
   await ensureDataFile();
   const raw = await fs.readFile(DATA_PATH, "utf-8");
   const data = JSON.parse(raw) as AppData;
+  let dirty = false;
+
   if (!data.users || data.users.length === 0) {
     const adminPass = hashPassword("admin123");
     const defaultAdmin: User = {
@@ -217,8 +236,26 @@ export async function readData(): Promise<AppData> {
       createdAt: new Date().toISOString(),
     };
     data.users = [defaultAdmin];
-    await writeData(data);
+    dirty = true;
   }
+
+  // Migrasi: pastikan setiap daerah punya key untuk semua item terbaru
+  // (termasuk OTB, JB 6/Mini, ODC-ODP 24) dengan nilai 0 bila belum ada.
+  data.regions = data.regions || [];
+  for (const region of data.regions) {
+    if (!region.totals) {
+      region.totals = {};
+      dirty = true;
+    }
+    for (const def of EQUIPMENT_DEFS) {
+      if (typeof region.totals[def.key] !== "number") {
+        region.totals[def.key] = 0;
+        dirty = true;
+      }
+    }
+  }
+
+  if (dirty) await writeData(data);
   return data;
 }
 
@@ -430,16 +467,16 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       0
     );
 
-  const oltKeys = EQUIPMENT_DEFS.filter((d) => d.category === "perangkat_aktif").map(
-    (d) => d.key
-  );
-  const odpKeys = EQUIPMENT_DEFS.filter((d) => d.category === "odp").map((d) => d.key);
-  const odcKeys = EQUIPMENT_DEFS.filter((d) => d.category === "odc").map((d) => d.key);
-  const jbKeys = EQUIPMENT_DEFS.filter((d) => d.category === "jb").map((d) => d.key);
-  const tiangKeys = EQUIPMENT_DEFS.filter((d) => d.category === "tiang").map((d) => d.key);
-  const kabelKeys = EQUIPMENT_DEFS.filter((d) => d.category === "kabel_adss").map(
-    (d) => d.key
-  );
+  const keysOf = (cat: EquipmentCategory) =>
+    EQUIPMENT_DEFS.filter((d) => d.category === cat).map((d) => d.key);
+
+  const oltKeys = keysOf("perangkat_aktif");
+  const odpKeys = keysOf("odp");
+  const odcKeys = keysOf("odc");
+  const otbKeys = keysOf("otb");
+  const jbKeys = keysOf("jb");
+  const tiangKeys = keysOf("tiang");
+  const kabelKeys = keysOf("kabel_adss");
 
   const byRegion = regions
     .map((r) => ({
@@ -448,6 +485,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
       olt: sumCategory(r.totals, "perangkat_aktif"),
       odp: sumCategory(r.totals, "odp"),
       odc: sumCategory(r.totals, "odc"),
+      otb: sumCategory(r.totals, "otb"),
       jb: sumCategory(r.totals, "jb"),
       tiang: sumCategory(r.totals, "tiang"),
       kabel: sumCategory(r.totals, "kabel_adss"),
@@ -478,6 +516,7 @@ export async function getDashboardStats(): Promise<DashboardStats> {
     totalOlt: sumKey(oltKeys),
     totalOdp: sumKey(odpKeys),
     totalOdc: sumKey(odcKeys),
+    totalOtb: sumKey(otbKeys),
     totalJb: sumKey(jbKeys),
     totalTiang: sumKey(tiangKeys),
     totalKabelMeter: sumKey(kabelKeys),
@@ -494,9 +533,7 @@ export async function getReport(regionId?: string) {
     : data.regions;
 
   return regions.map((r) => {
-    const categories = (
-      ["perangkat_aktif", "tiang", "odp", "odc", "jb", "kabel_adss"] as const
-    ).map((cat) => ({
+    const categories = EQUIPMENT_CATEGORIES.map((cat) => ({
       category: cat,
       items: EQUIPMENT_DEFS.filter((d) => d.category === cat).map((d) => ({
         key: d.key,
@@ -520,6 +557,7 @@ export async function getReport(regionId?: string) {
         tiang: sumCategory(r.totals, "tiang"),
         odp: sumCategory(r.totals, "odp"),
         odc: sumCategory(r.totals, "odc"),
+        otb: sumCategory(r.totals, "otb"),
         jb: sumCategory(r.totals, "jb"),
         kabel: sumCategory(r.totals, "kabel_adss"),
       },

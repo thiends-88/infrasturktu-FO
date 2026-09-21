@@ -404,7 +404,7 @@ function InputFormInner() {
                   <p className="font-semibold mb-2">
                     Total saat ini — {selectedRegion.name}
                   </p>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-xs">
                     <span>
                       OLT:{" "}
                       <b>
@@ -422,6 +422,12 @@ function InputFormInner() {
                     <span>
                       ODC:{" "}
                       <b>{formatNumber(sumCategory(selectedRegion.totals, "odc"))}</b>
+                    </span>
+                    <span>
+                      OTB:{" "}
+                      <b className="text-pink-700">
+                        {formatNumber(sumCategory(selectedRegion.totals, "otb"))}
+                      </b>
                     </span>
                     <span>
                       JB: <b>{formatNumber(sumCategory(selectedRegion.totals, "jb"))}</b>

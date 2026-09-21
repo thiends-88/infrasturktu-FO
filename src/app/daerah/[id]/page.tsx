@@ -14,8 +14,9 @@ import Loading from "@/components/Loading";
 import {
   CATEGORY_COLORS,
   CATEGORY_LABELS,
+  EQUIPMENT_CATEGORIES,
   EQUIPMENT_DEFS,
-  EquipmentCategory,
+  METER_CATEGORY,
   Region,
   Transaction,
   sumCategory,
@@ -30,14 +31,7 @@ import {
   deltaLabel,
 } from "@/lib/format";
 
-const CATS: EquipmentCategory[] = [
-  "perangkat_aktif",
-  "tiang",
-  "odp",
-  "odc",
-  "jb",
-  "kabel_adss",
-];
+const CATS = EQUIPMENT_CATEGORIES;
 
 export default function DaerahDetailPage() {
   const params = useParams();
@@ -109,10 +103,10 @@ export default function DaerahDetailPage() {
       />
 
       {/* Summary chips */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
         {CATS.map((cat) => {
           const total = sumCategory(region.totals, cat);
-          const isKabel = cat === "kabel_adss";
+          const isKabel = cat === METER_CATEGORY;
           return (
             <div key={cat} className="card p-4">
               <div className="flex items-center gap-2 mb-1">
@@ -149,7 +143,7 @@ export default function DaerahDetailPage() {
                 </h3>
                 <span className="ml-auto text-xs font-semibold text-slate-500">
                   Subtotal:{" "}
-                  {cat === "kabel_adss"
+                  {cat === METER_CATEGORY
                     ? formatMeter(sumCategory(region.totals, cat))
                     : formatNumber(sumCategory(region.totals, cat))}
                 </span>

@@ -9,6 +9,7 @@ import {
   Cable,
   TowerControl,
   HardDrive,
+  Network,
   Activity,
   ArrowRight,
   PlusCircle,
@@ -83,8 +84,8 @@ export default function DashboardPage() {
         }
       />
 
-      {/* KPI cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6">
+      {/* KPI cards — 9 kartu, 3 kolom di layar sedang ke atas agar baris penuh */}
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-6">
         <StatCard
           title="Wilayah"
           value={formatNumber(stats.totalRegions)}
@@ -112,6 +113,13 @@ export default function DashboardPage() {
           subtitle="Semua tipe ODC"
           icon={HardDrive}
           color="#f59e0b"
+        />
+        <StatCard
+          title="Total OTB"
+          value={formatNumber(stats.totalOtb ?? 0)}
+          subtitle="Optical Termination Box"
+          icon={Network}
+          color="#ec4899"
         />
         <StatCard
           title="Total JB"
@@ -151,7 +159,7 @@ export default function DashboardPage() {
               <h2 className="text-base font-bold text-slate-800">
                 Inventaris per Wilayah
               </h2>
-              <p className="text-xs text-slate-500">Perbandingan ODP, ODC, JB, OLT</p>
+              <p className="text-xs text-slate-500">Perbandingan ODP, ODC, OTB, JB, OLT</p>
             </div>
             <Link
               href="/daerah"
@@ -185,6 +193,7 @@ export default function DashboardPage() {
                 <Legend wrapperStyle={{ fontSize: 12 }} />
                 <Bar dataKey="odp" name="ODP" fill="#10b981" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="odc" name="ODC" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="otb" name="OTB" fill="#ec4899" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="jb" name="JB" fill="#ef4444" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="olt" name="OLT" fill="#1a7bf5" radius={[4, 4, 0, 0]} />
               </BarChart>
@@ -258,6 +267,7 @@ export default function DashboardPage() {
                   <th className="px-3 py-3 font-semibold text-right">OLT</th>
                   <th className="px-3 py-3 font-semibold text-right">ODP</th>
                   <th className="px-3 py-3 font-semibold text-right">ODC</th>
+                  <th className="px-3 py-3 font-semibold text-right">OTB</th>
                   <th className="px-3 py-3 font-semibold text-right">JB</th>
                   <th className="px-3 py-3 font-semibold text-right">Tiang</th>
                   <th className="px-5 py-3 font-semibold text-right">Kabel</th>
@@ -279,6 +289,9 @@ export default function DashboardPage() {
                       {formatNumber(r.odp)}
                     </td>
                     <td className="px-3 py-3 text-right tabular-nums">{formatNumber(r.odc)}</td>
+                    <td className="px-3 py-3 text-right tabular-nums text-pink-700">
+                      {formatNumber(r.otb ?? 0)}
+                    </td>
                     <td className="px-3 py-3 text-right tabular-nums">{formatNumber(r.jb)}</td>
                     <td className="px-3 py-3 text-right tabular-nums">{formatNumber(r.tiang)}</td>
                     <td className="px-5 py-3 text-right tabular-nums text-slate-600">
@@ -288,7 +301,7 @@ export default function DashboardPage() {
                 ))}
                 {stats.byRegion.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-5 py-8 text-center text-slate-400">
+                    <td colSpan={8} className="px-5 py-8 text-center text-slate-400">
                       Belum ada data daerah. Mulai dengan input data.
                     </td>
                   </tr>
