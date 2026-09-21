@@ -86,11 +86,9 @@ cd /opt/apps
 git clone https://github.com/thiends-88/infrasturktu-FO.git
 cd infrasturktu-FO
 
-# Pastikan branch berisi aplikasi
-git fetch origin
-git checkout arena/01a0b368-infrasturktu-fo
-# Setelah branch digabung ke main, cukup:
-# git checkout main && git pull
+# Seluruh fitur sudah digabung ke main
+git checkout main
+git pull
 
 npm install
 npm run build
@@ -204,13 +202,33 @@ cp /opt/apps/infrasturktu-FO/data/db.json ~/backup-infra-fo-$(date +%F).json
 ```bash
 cd /opt/apps/infrasturktu-FO
 sudo systemctl stop infra-fo
+
+# Backup data sebelum update (disarankan)
+cp data/db.json ~/backup-infra-fo-$(date +%F-%H%M).json
+
 git pull
 npm install
 npm run build
 sudo systemctl start infra-fo
 ```
 
-> **Catatan:** `data/db.json` ikut di repo sebagai seed demo. Di production, backup dulu sebelum `git pull` jika file ini ikut berubah di remote. Idealnya setelah go-live, data production tidak di-overwrite dari git.
+> **Catatan:** `data/db.json` adalah file runtime yang ditulis aplikasi, sehingga di
+> server production selalu berstatus *modified*. Karena itu file ini **tidak
+> disertakan** dalam commit fitur — `git pull` akan berjalan aman tanpa menimpa
+> data production. Bila ada format data baru (mis. item inventaris tambahan),
+> migrasi otomatis di `readData()` akan mengisi key baru dengan nilai `0` saat
+> aplikasi dijalankan, tanpa mengubah nilai yang sudah ada.
+
+**Jika `git pull` menolak dengan pesan *"local changes would be overwritten"*:**
+
+```bash
+# Data production aman: simpan dulu, pull, lalu kembalikan
+cp data/db.json /tmp/db-server.json
+git checkout -- data/db.json
+git pull
+cp /tmp/db-server.json data/db.json
+sudo systemctl restart infra-fo
+```
 
 ---
 
